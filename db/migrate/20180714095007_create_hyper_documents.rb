@@ -13,6 +13,8 @@ class CreateHyperDocuments < ActiveRecord::Migration[5.2]
       t.string :document_type
       t.string :base_path
 
+      t.json :contents, default: {}
+
       t.timestamps
     end
   end

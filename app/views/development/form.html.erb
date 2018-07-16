@@ -1,0 +1,122 @@
+<%= content_for :title, "Create a new #{@form.document_type}" %>
+
+<p>
+Write a: <% YAML.load_file("config/formats.yml").each do |format| %>
+  <%= link_to format["document_type"], { document_type: format["document_type"] } %>
+<% end %>
+</p>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="email">
+    Title
+  </label>
+  <input class="govuk-input" id="email" name="email" type="text" aria-describedby="email-hint">
+</div>
+
+<% @form.config["fields"].each do |field| %>
+  <% if field["type"] == "content_in_parts" %>
+    <% 2.times do |i| %>
+      <h3 class='govuk-heading-l'>Part <%= i + 1 %></h3>
+      <% field["fields"].each do |part| %>
+        <div class="govuk-inset-text">
+          <% if part["type"] == "govspeak" %>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="more-detail">
+                <%= part["label"] %>
+              </label>
+              <textarea class="govuk-textarea" id="more-detail" name="more-detail" rows="5" aria-describedby="more-detail-hint"></textarea>
+            </div>
+          <% end %>
+
+          <% if part["type"] == "string" %>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="email">
+                <%= part["label"] %>
+              </label>
+              <input class="govuk-input" id="email" name="email" type="text" aria-describedby="email-hint">
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= render "govuk_publishing_components/components/button", text: "Add another part" %>
+
+    <hr/>
+  <% end %>
+
+  <% if field["type"] == "govspeak" %>
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="more-detail">
+        <%= field["label"] %>
+      </label>
+      <textarea class="govuk-textarea" id="more-detail" name="more-detail" rows="5" aria-describedby="more-detail-hint"></textarea>
+    </div>
+  <% end %>
+
+  <% if field["type"] == "enum" %>
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="more-detail">
+        <%= field["label"] %>
+      </label>
+      <select class="govuk-select" id="sort" name="sort">
+        <%= field["options"].each do |option| %>
+          <option value="published"><%= option["label"] %></option>
+        <% end %>
+      </select>
+    </div>
+  <% end %>
+
+  <% if field["type"] == "date" %>
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="dob-hint" role="group">
+      <legend class="govuk-fieldset__legend">
+        <%= field["label"] %>
+      </legend>
+      <span id="dob-hint" class="govuk-hint">
+      For example, 31 3 1980
+    </span>
+      <div class="govuk-date-input" id="dob">
+
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-date-input__label" for="dob-day">
+            Day
+          </label>
+            <input class="govuk-input govuk-date-input__input govuk-input--width-2 undefined" id="dob-day" name="dob-day" type="number" pattern="[0-9]*">
+          </div>
+        </div>
+
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-date-input__label" for="dob-month">
+            Month
+          </label>
+            <input class="govuk-input govuk-date-input__input govuk-input--width-2 undefined" id="dob-month" name="dob-month" type="number" pattern="[0-9]*">
+          </div>
+        </div>
+
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-date-input__label" for="dob-year">
+            Year
+          </label>
+            <input class="govuk-input govuk-date-input__input govuk-input--width-4 undefined" id="dob-year" name="dob-year" type="number" pattern="[0-9]*">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <% end %>
+
+  <% if field["type"] == "image" %>
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="file-upload-1">
+        <%= field["label"] %>
+      </label>
+      <input class="govuk-file-upload" id="file-upload-1" name="file-upload-1" type="file">
+    </div>
+  <% end %>
+<% end %>
+
+<%= render "govuk_publishing_components/components/button", text: "Save document" %>

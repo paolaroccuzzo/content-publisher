@@ -1,0 +1,64 @@
+# Press releases are currently published by Whitehall
+#
+# https://www.gov.uk/api/content/government/news/new-find-a-job-service-to-support-thousands-of-jobseekers-into-work
+- document_type: press_release
+  schema_name: news_article
+  fields:
+    - id: body
+      label: Body text for the press release
+      type: govspeak
+    - id: image
+      label: Image for this press release
+      type: image
+
+# Places are currently published by Mainstream Publisher
+#
+# https://www.gov.uk/api/content/register-offices
+- document_type: place
+  schema_name: place
+  fields:
+    - id: introduction
+      label: Introduction
+      type: govspeak
+    - id: more_information
+      label: More information
+      type: govspeak
+
+# AAIB reports are currently published by Specialist Publisher
+#
+# https://www.gov.uk/api/content/aaib-reports/aaib-investigation-to-ikarus-c42-fb80-g-cicg
+- document_type: aaib_report
+  schema_name: specalist_document
+  fields:
+    - id: body
+      label: The body text
+      type: govspeak
+    - id: date_of_occurrence
+      label: When did this incident occur?
+      type: date
+    - id: aircraft_category
+      label: What is the aircraft category?
+      type: enum
+      options:
+        - label: "Commercial - fixed wing"
+          value:  "commercial-fixed-wing"
+        - label: "Commercial - rotorcraft"
+          value:  "commercial-rotorcraft"
+      # ETC
+
+# Travel advice is currently published by Travel Advice Publisher
+- document_type: travel_advice
+  schema_name: travel_advice
+  fields:
+    - id: summary
+      type: govspeak
+      label: Summary
+    - id: parts
+      type: content_in_parts
+      fields:
+      - id: title
+        label: Title of section
+        type: string
+      - id: body
+        label: Body
+        type: govspeak

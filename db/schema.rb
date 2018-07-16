@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2018_07_14_165004) do
     t.string "title"
     t.string "document_type"
     t.string "base_path"
+    t.json "contents", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["content_id", "locale"], name: "index_hyper_documents_on_content_id_and_locale", unique: true
