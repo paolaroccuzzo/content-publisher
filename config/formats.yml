@@ -3,6 +3,7 @@
 # https://www.gov.uk/api/content/government/news/new-find-a-job-service-to-support-thousands-of-jobseekers-into-work
 - document_type: press_release
   schema_name: news_article
+  slug_prefix: '/government/news/'
   fields:
     - id: body
       label: Body text for the press release
@@ -10,6 +11,15 @@
     - id: image
       label: Image for this press release
       type: image
+
+- document_type: consultation
+  schema_name: news_article
+  slug_prefix: '/government/news/'
+  fields:
+    - id: closing_date
+      label: Closing date
+      type: date
+      validator: ConsultationClosingDateValidator
 
 # Places are currently published by Mainstream Publisher
 #

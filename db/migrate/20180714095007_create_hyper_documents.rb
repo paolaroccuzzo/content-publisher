@@ -5,8 +5,9 @@ class CreateHyperDocuments < ActiveRecord::Migration[5.2]
     create_table :hyper_documents do |t|
       t.string :content_id, null: false
       t.string :locale, null: false
-      t.string :state, null: false
       t.index %i[content_id locale], unique: true
+
+      t.string :state, null: false
 
       t.integer :current_edition_number
       t.string :title
