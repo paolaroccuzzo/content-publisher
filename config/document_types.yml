@@ -1,0 +1,110 @@
+# Press releases are currently published by Whitehall
+#
+# https://www.gov.uk/api/content/government/news/new-find-a-job-service-to-support-thousands-of-jobseekers-into-work
+- document_type: press_release
+  schema_name: news_article
+  slug_prefix: '/government/news/'
+  fields:
+    - id: body
+      label: Body text for the press release
+      type: govspeak
+      required: true
+    - id: is_political
+      label: Associate with government of the time
+      type: boolean
+
+  links:
+    - id: lead_organisation
+      required: true
+      type: lead_organisation-picker # uses the current users' org as default
+    - id: supporting_organisation
+      type: organisation-picker
+    - id: minister
+      type: people-picker
+
+    # - id: image
+    #   label: Image for this press release
+    #   type: image
+    #   required: false
+
+- document_type: press_release
+  schema_name: news_article
+  slug_prefix: '/government/news/'
+  fields:
+    - id: body
+      label: Body text for the press release
+      type: govspeak
+      required: true
+    - id: image
+      label: Image for this press release
+      type: image
+      required: false
+
+- document_type: consultation
+  schema_name: news_article
+  slug_prefix: '/government/news/'
+  validators:
+    - ConsultationValidator
+  fields:
+    - id: closing_date
+      label: Closing date
+      type: date
+    - id: close_date
+      label: Closing date
+      type: date
+      show_in_form: false
+    - id: opening_date
+      label: Opening date
+      type: date
+
+# Places are currently published by Mainstream Publisher
+#
+# https://www.gov.uk/api/content/register-offices
+- document_type: place
+  schema_name: place
+  fields:
+    - id: introduction
+      label: Introduction
+      type: govspeak
+    - id: more_information
+      label: More information
+      type: govspeak
+
+# AAIB reports are currently published by Specialist Publisher
+#
+# https://www.gov.uk/api/content/aaib-reports/aaib-investigation-to-ikarus-c42-fb80-g-cicg
+- document_type: aaib_report
+  schema_name: specalist_document
+  fields:
+    - id: body
+      label: The body text
+      type: govspeak
+    - id: date_of_occurrence
+      label: When did this incident occur?
+      type: date
+    - id: aircraft_category
+      label: What is the aircraft category?
+      type: enum
+      options:
+        - label: "Commercial - fixed wing"
+          value:  "commercial-fixed-wing"
+        - label: "Commercial - rotorcraft"
+          value:  "commercial-rotorcraft"
+      # ETC
+
+# Travel advice is currently published by Travel Advice Publisher
+- document_type: travel_advice
+  schema_name: travel_advice
+  fields:
+    - id: summary
+      type: govspeak
+      label: Summary
+    - id: parts
+      type: content_in_parts
+      fields:
+      - id: title
+        label: Title of section
+        type: string
+      - id: body
+        label: Body
+        type: govspeak
