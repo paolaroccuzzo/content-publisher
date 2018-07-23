@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get '/documents/:id/edit' => 'documents#edit', as: :edit_document
   patch '/documents/:id' => 'documents#update', as: :document
 
+  get '/documents/:id/preview' => 'preview#show'
+
   get "/healthcheck", to: proc { [200, {}, ["OK"]] }
 
   if Rails.env.test?

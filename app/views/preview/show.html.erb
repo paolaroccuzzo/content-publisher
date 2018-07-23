@@ -1,0 +1,85 @@
+<%= content_for :back_link, edit_document_path(@document) %>
+<%= content_for :title, "Preview" %>
+
+<div class="govuk-tabs govuk-!-margin-bottom-6" data-module="tabs">
+  <h2 class="govuk-tabs__title">
+    Contents
+  </h2>
+
+  <ul class="govuk-tabs__list">
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#mobile">
+        Mobile
+      </a>
+    </li>
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#desktop">
+        Desktop / tablet
+      </a>
+    </li>
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#search">
+        Google
+      </a>
+    </li>
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#email">
+        Email update
+      </a>
+    </li>
+    <li class="govuk-tabs__list-item">
+      <a class="govuk-tabs__tab" href="#govuk-feature">
+        GOV.UK featuring
+      </a>
+    </li>
+  </ul>
+
+  <section class="govuk-tabs__panel" id="mobile">
+    <h2 class="govuk-heading-l">Mobile</h2>
+
+    <div class="iphone">
+      <iframe class="iframe" src="<%= @url %>"></iframe>
+    </div>
+  </section>
+
+  <section class="govuk-tabs__panel" id="desktop">
+    <h2 class="govuk-heading-l">Desktop / tablet</h2>
+    <iframe src="<%= @url %>" class="desktop-preview"></iframe>
+  </section>
+
+  <section class="govuk-tabs__panel" id="search">
+    <h2 class="govuk-heading-l">Google</h2>
+
+    <div class="google">
+      <a class="google-title" href="https://www.gov.uk/browse/driving"><%= @document.title %> - GOV.UK</a>
+      <div class="google-url">https://www.gov.uk<%= @document.base_path %></div>
+      <div class="google-description"><%= @document.description %></div>
+    </div>
+    <br/>
+    <br/>
+  </section>
+
+  <section class="govuk-tabs__panel" id="email">
+    <h2 class="govuk-heading-l">Email update</h2>
+    TBD.
+  </section>
+
+  <section class="govuk-tabs__panel" id="govuk-feature">
+    <h2 class="govuk-heading-l">GOV.UK featuring</h2>
+
+    <%= render "govuk_publishing_components/components/highlight_boxes", {
+      items: [
+        {
+          link: {
+            text: @document.title,
+            path: @document.base_path,
+            description: @document.description,
+          },
+          metadata: {
+            document_type: @document.document_type
+          }
+        }
+      ]
+    } %>
+  </section>
+</div>
