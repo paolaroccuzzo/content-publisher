@@ -1,0 +1,11 @@
+development:
+  adapter: redis
+  channel_prefix: content_publisher
+
+test:
+  adapter: redis
+  channel_prefix: content_publisher
+
+production:
+  adapter: redis
+  channel_prefix: content_publisher
