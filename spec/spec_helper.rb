@@ -9,6 +9,7 @@ require "rspec/rails"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 SimpleCov.start
+GovukTest.configure
 
 RSpec.configure do |config|
   config.expose_dsl_globally = false
