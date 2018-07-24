@@ -33,7 +33,11 @@ module ContentPublisher
     config.middleware.delete Slimmer::App
 
     # The "acceptance environment" we're in - not the same as Rails env.
-    # Can be production, staging, integration, or development
-    config.govuk_environment = ENV["ERRBIT_ENVIRONMENT_NAME"] || "development"
+    # Can be production, staging, integration, or development. On AWS it's
+    # called `foo-aws-blue`, so we have to jump through some hoops here.
+    original_environment_name = ENV.fetch("ERRBIT_ENVIRONMENT_NAME", "development")
+    environment_name = original_environment_name.split("-").first
+    raise unless environment_name.in?(%w[test development integration staging production])
+    config.govuk_environment = environment_name
   end
 end
