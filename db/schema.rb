@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_095923) do
+ActiveRecord::Schema.define(version: 2018_07_25_153231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,9 @@ ActiveRecord::Schema.define(version: 2018_07_25_095923) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "contents", default: {}
+    t.text "summary"
     t.string "base_path"
+    t.datetime "first_public_at"
     t.index ["content_id", "locale"], name: "index_documents_on_content_id_and_locale", unique: true
   end
 

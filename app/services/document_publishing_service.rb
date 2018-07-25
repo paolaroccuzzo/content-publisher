@@ -10,7 +10,14 @@ class DocumentPublishingService
   end
 
   def publish(document)
-    publishing_api.publish(document.content_id, "major")
+    Document.transaction do
+      unless document.first_public_at
+        document.update!(first_public_at: Time.zone.now)
+        publishing_api.put_content(document.content_id, payload(document))
+      end
+
+      publishing_api.publish(document.content_id, "major")
+    end
   end
 
 private
@@ -23,7 +30,7 @@ private
       document_type: document.document_type,
       publishing_app: PUBLISHING_APP,
       rendering_app: document.document_type_schema.rendering_app,
-      details: document.contents.merge(first_public_at: Time.now.iso8601,
+      details: document.contents.merge(first_public_at: (document.first_public_at || Time.zone.now),
                                        government: {
                                          title: "Hey", slug: "what", current: true,
                                        },
