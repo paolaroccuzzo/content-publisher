@@ -1,0 +1,7 @@
+<p>
+    <%= label %><br/>
+    <%= tag.select document.contents[name],  name: "document[contents][#{name}]", class: 'govuk-select', multiple: true, style: 'height: 200px' do
+        options_for_select LinkablesService.new.linkables(name)
+        end
+    %>
+</p>

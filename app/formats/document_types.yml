@@ -6,6 +6,12 @@
     - id: body
       label: Body text for the press release
       type: govspeak
+    - id: topical_event
+      label: Topical event the press release relates to
+      type: linkables_selector
+    - id: world_location
+      label: World location the press release relates to
+      type: linkables_selector
 
 - document_type: news_article
   name: News article
