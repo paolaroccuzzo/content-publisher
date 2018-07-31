@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DocumentTypeSchema
-  attr_reader :contents, :id, :name, :supertype, :managed_elsewhere, :publishing_metadata
+  attr_reader :contents, :id, :name, :supertype, :managed_elsewhere, :publishing_metadata, :associations
 
   def initialize(params = {})
     @id = params["id"]
@@ -10,6 +10,7 @@ class DocumentTypeSchema
     @managed_elsewhere = params["managed_elsewhere"]
     @contents = params["contents"].to_a.map { |field| Field.new(field) }
     @publishing_metadata = PublishingMetadata.new(params["publishing_metadata"])
+    @associations = params.dig("associations", "fields").to_a.map { |field| Field.new(field) }
   end
 
   def self.find(document_type_id)
@@ -26,6 +27,10 @@ class DocumentTypeSchema
 
   def managed_elsewhere_url
     Plek.find(managed_elsewhere.fetch('hostname')) + managed_elsewhere.fetch('path')
+  end
+
+  def associations?
+    associations.any?
   end
 
   class PublishingMetadata
