@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   patch '/documents/:id' => 'documents#update', as: :document
   get '/documents/:id' => 'documents#show'
 
+  get '/documents/:id/associations' => 'document_associations#edit', as: :document_associations
+  post '/documents/:id/associations' => 'document_associations#update'
+
   get "/healthcheck", to: proc { [200, {}, ["OK"]] }
 
   mount GovukPublishingComponents::Engine, at: "/component-guide"
