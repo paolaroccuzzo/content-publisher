@@ -29,10 +29,6 @@ class DocumentTypeSchema
     Plek.find(managed_elsewhere.fetch('hostname')) + managed_elsewhere.fetch('path')
   end
 
-  def associations?
-    associations.any?
-  end
-
   class PublishingMetadata
     include ActiveModel::Model
     attr_accessor :schema_name, :rendering_app
