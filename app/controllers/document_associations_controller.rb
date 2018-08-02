@@ -7,7 +7,7 @@ class DocumentAssociationsController < ApplicationController
 
   def update
     @document = Document.find(params[:id])
-    @document.update_attribute(:associations, update_params)
+    @document.update(associations: updated_associations)
     DocumentPublishingService.new.publish_draft(@document)
     redirect_to @document, notice: "Preview creation successful"
   rescue GdsApi::HTTPErrorResponse, SocketError => e
@@ -18,6 +18,13 @@ class DocumentAssociationsController < ApplicationController
 private
 
   def update_params
-    params.require(:associations).permit(topical_event: [])
+    permit = @document.document_type_schema.associations.map { |a| a.permit }
+    params.fetch(:associations, {}).permit(*permit)
+  end
+
+  def updated_associations
+    @document.document_type_schema.associations.each_with_object({}) do |field, memo|
+      memo[field.id] = field.input_to_record(update_params[field.id])
+    end
   end
 end

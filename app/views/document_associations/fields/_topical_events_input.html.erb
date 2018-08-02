@@ -1,0 +1,10 @@
+<p>
+  <%= render "govuk_publishing_components/components/label", {
+    text: field.label,
+    html_for: "associations[#{field.type}]"
+  } %>
+
+  <%= tag.select name: "associations[#{field.type}][]", class: "govuk-select", multiple: true, style: "height: 200px" do
+    options_for_select field.select_options, field.form_value(value)
+  end %>
+</p>

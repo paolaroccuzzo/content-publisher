@@ -1,0 +1,14 @@
+<div>
+  <p><%= field.label %>:</p>
+  <% presented = field.show_value(value) %>
+
+  <% if presented.any? %>
+    <ul>
+      <% presented.map do |link| %>
+        <li><%= link["name"] %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    None
+  <% end %>
+</div>

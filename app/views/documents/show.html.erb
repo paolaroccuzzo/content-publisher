@@ -27,7 +27,7 @@
   <h2>Associations</h2>
 
   <% @document.document_type_schema.associations.each do |field| %>
-    <%= render "documents/fields/#{field.type}", name: field.id, label: field.label, value: @document.associations[field.id] %>
+    <%= render "documents/fields/#{field.type}", field: field, value: @document.associations[field.id] %>
   <% end %>
 
 <% end %>

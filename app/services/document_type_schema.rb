@@ -10,7 +10,7 @@ class DocumentTypeSchema
     @managed_elsewhere = params["managed_elsewhere"]
     @contents = params["contents"].to_a.map { |field| Field.new(field) }
     @publishing_metadata = PublishingMetadata.new(params["publishing_metadata"])
-    @associations = params["associations"].to_a.map { |field| Field.new(field) }
+    @associations = params["associations"].to_a.map { |field| create_association_field(field) }
   end
 
   def self.find(document_type_id)
@@ -27,6 +27,12 @@ class DocumentTypeSchema
 
   def managed_elsewhere_url
     Plek.find(managed_elsewhere.fetch('hostname')) + managed_elsewhere.fetch('path')
+  end
+
+private
+
+  def create_association_field(field_name)
+    "Fields::#{field_name.camelize}".constantize.new
   end
 
   class PublishingMetadata

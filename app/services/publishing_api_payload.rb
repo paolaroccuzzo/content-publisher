@@ -24,7 +24,8 @@ class PublishingApiPayload
       details: details,
       routes: [
         { path: document.base_path, type: "exact" },
-      ]
+      ],
+      links: links,
     }
   end
 
@@ -38,6 +39,12 @@ private
     end
 
     details_hash
+  end
+
+  def links
+    document_type_schema.associations.each_with_object({}) do |association, memo|
+      memo[association.id] = association.publishing_api_value(document.associations[association.id])
+    end
   end
 
   def temporary_defaults_in_details
