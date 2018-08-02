@@ -10,7 +10,7 @@ class DocumentTypeSchema
     @managed_elsewhere = params["managed_elsewhere"]
     @contents = params["contents"].to_a.map { |field| Field.new(field) }
     @publishing_metadata = PublishingMetadata.new(params["publishing_metadata"])
-    @associations = params.dig("associations", "fields").to_a.map { |field| Field.new(field) }
+    @associations = params["associations"].to_a.map { |field| Field.new(field) }
   end
 
   def self.find(document_type_id)
