@@ -8,9 +8,9 @@ class DocumentTypeSchema
     @name = params["name"]
     @supertype = SupertypeSchema.find(params["supertype"])
     @managed_elsewhere = params["managed_elsewhere"]
-    @contents = params["contents"].to_a.map { |field| Field.new(field) }
+    @contents = params["contents"].to_a.map(&Field.method(:new))
     @publishing_metadata = PublishingMetadata.new(params["publishing_metadata"])
-    @associations = params["associations"].to_a.map { |field| Field.new(field) }
+    @associations = params["associations"].to_a.map(&Association.method(:new))
   end
 
   def self.find(document_type_id)
@@ -27,6 +27,11 @@ class DocumentTypeSchema
 
   def managed_elsewhere_url
     Plek.find(managed_elsewhere.fetch('hostname')) + managed_elsewhere.fetch('path')
+  end
+
+  class Association
+    include ActiveModel::Model
+    attr_accessor :id, :label, :type, :document_type
   end
 
   class PublishingMetadata
