@@ -7,6 +7,7 @@ source "https://rubygems.org"
 gem "rails", "~> 5.2"
 
 gem "bootsnap", "~> 1"
+gem "foreman", "~> 0.82"
 gem "gds-api-adapters", "~> 52"
 gem "gds-sso", "~> 13"
 gem "govuk_app_config", "~> 1"
@@ -14,6 +15,7 @@ gem "govuk_publishing_components", "~> 9.13"
 gem "pg", "~> 1"
 gem "plek", "~> 2"
 gem "uglifier", "~> 4"
+gem "webpacker", "~> 3"
 
 group :development do
   gem "brakeman", "~> 4"
