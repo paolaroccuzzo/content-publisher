@@ -12,6 +12,7 @@ class Document < ApplicationRecord
   ].freeze
 
   validates_inclusion_of :publication_state, in: PUBLICATION_STATES
+  validates :images, image_collection: true
 
   def document_type_schema
     DocumentTypeSchema.find(document_type)
