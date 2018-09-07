@@ -8,7 +8,7 @@ class DocumentsController < ApplicationController
 
   def index
     filter = DocumentFilter.new(
-      filters: params.permit(:title_or_url, :document_type).to_hash,
+      filters: params.permit(:title_or_url, :document_type, :state).to_hash,
       sort: params[:sort],
       page: params[:page],
       per_page: 50,

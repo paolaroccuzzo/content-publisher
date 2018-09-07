@@ -40,6 +40,9 @@ private
         memo.where("title ILIKE ? OR base_path ILIKE ?", "%#{value}%", "%#{value}%")
       when :document_type
         memo.where(document_type: value)
+      when :state
+        next unless UserFacingState::STATES.include?(value)
+        memo.merge(Document.public_send(value))
       end
     end
   end

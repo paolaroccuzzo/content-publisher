@@ -24,6 +24,21 @@ class Document < ApplicationRecord
   validates_inclusion_of :publication_state, in: PUBLICATION_STATES
   validates_inclusion_of :review_state, in: REVIEW_STATES
 
+  scope :draft, -> {
+    where(
+      publication_state: %w[changes_not_sent_to_draft sent_to_draft sending_to_draft error_sending_to_draft sending_to_live],
+    ).where.not(review_state: "submitted_for_review")
+  }
+  scope :submitted_for_review, -> { where(review_state: "submitted_for_review") }
+  scope :published_but_needs_2i, -> { where(review_state: "published_without_review") }
+  scope :published, -> {
+    where(publication_state: %w[sent_to_live error_sending_to_live])
+  }
+
+  def scope_for_user_facing_state
+
+  end
+
   def document_type_schema
     DocumentTypeSchema.find(document_type)
   end
