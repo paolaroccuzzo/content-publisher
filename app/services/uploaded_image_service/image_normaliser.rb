@@ -3,10 +3,11 @@
 require "mini_magick"
 
 class UploadedImageService::ImageNormaliser
-  attr_reader :image
+  attr_reader :image, :output
 
   def initialize(image_path)
-    @image = MiniMagick::Image.new(image_path)
+    @image = MiniMagick::Image.open(image_path)
+    @output = Tempfile.new
   end
 
   def dimensions
@@ -25,5 +26,8 @@ class UploadedImageService::ImageNormaliser
       # remove exif data as this may reveal more than publishers expect
       file.strip
     end
+
+    image.write output.path
+    output
   end
 end

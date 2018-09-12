@@ -16,14 +16,13 @@ class UploadedImageService
 
     return InvalidImage.new(errors: errors) if errors.any?
 
-    image_normaliser.normalise
     dimensions = image_normaliser.dimensions
     cropper = CentreCropper.new(dimensions[:width],
                                 dimensions[:height],
                                 output_width.to_f / output_height)
 
     ValidImage.new(
-      file: upload,
+      file: image_normaliser.normalise,
       mime_type: mime_type,
       filename: upload.original_filename,
       dimensions: dimensions,
