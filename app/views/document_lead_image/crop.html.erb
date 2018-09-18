@@ -5,15 +5,13 @@
   <%= t("document_lead_image.crop.description") %>
 </p>
 
-<%= form_tag(update_document_lead_image_path(@document, @image, next_screen: params[:next_screen]), method: :patch) do %>
-  <%= render "/components/image_cropper", {
-    id: "cropp-image",
-    src: url_for(@image.blob),
-    alt_text: @image.alt_text
-  } %>
+<%= render "/components/image_cropper", {
+  id: "cropp-image",
+  src: url_for(@image.blob),
+  alt_text: @image.alt_text,
+  crop_x: @image.crop_x,
+  crop_y: @image.crop_y,
+  crop_width: @image.crop_width,
+  crop_height: @image.crop_height
+} %>
 
-  <%= render "govuk_publishing_components/components/button", {
-    text: "Crop image",
-    margin_bottom: true
-  } %>
-<% end %>

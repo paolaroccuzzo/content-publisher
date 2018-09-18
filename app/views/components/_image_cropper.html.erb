@@ -3,8 +3,20 @@
   alt_text ||= nil
 %>
 <div class="app-c-image-cropper" id="<%= id %>" data-module="image-cropper">
-  <%= tag.img class: "app-c-image-cropper__image",
+  <%= form_tag(update_document_lead_image_path(@document, @image, next_screen: params[:next_screen]), method: :patch) do %>
+    <%= tag.img class: "app-c-image-cropper__image",
     src: src,
     alt: alt_text
-  %>
+    %>
+
+    <%= hidden_field_tag 'crop_x', crop_x %>
+    <%= hidden_field_tag 'crop_y', crop_y %>
+    <%= hidden_field_tag 'crop_width', crop_width %>
+    <%= hidden_field_tag 'crop_height', crop_height %>
+
+    <%= render "govuk_publishing_components/components/button", {
+      text: "Crop image",
+      margin_bottom: true
+    } %>
+  <% end %>
 </div>
