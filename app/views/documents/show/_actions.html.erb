@@ -45,6 +45,7 @@
       <%= render "govuk_publishing_components/components/button", text: "Preview", href: preview_document_path(@document), secondary: true, target: "_blank" %>
 
       <%= link_to "Publish", publish_document_path(@document), class: "govuk-link" %>
+      <%= link_to "Schedule", schedule_document_path(@document), class: "govuk-link" %>
 
       <% unless @document.has_live_version_on_govuk %>
         <%= link_to "Delete draft", delete_draft_path(@document), class: "app-link--destructive app-link--right" %>

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   post "/documents/:id/publish" => "publish_document#publish"
   get "/documents/:id/published" => "publish_document#published", as: :document_published
 
+  get "/documents/:id/schedule" => "schedule_document#pick_date", as: :schedule_document
+  post "/documents/:id/schedule" => "schedule_document#schedule"
+
   get "/documents" => "documents#index"
   get "/documents/:id/edit" => "documents#edit", as: :edit_document
   post "/documents/:id/retry-draft" => "documents#retry_draft_save", as: :retry_draft_save

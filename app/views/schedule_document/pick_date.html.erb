@@ -1,0 +1,14 @@
+<% content_for :back_link, document_path(@document) %>
+<% content_for :title, t("schedule.pick_date.title") %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_tag schedule_document_path(@document) do %>
+      <%= datetime_select("document", "scheduled_at") %>
+
+      <%= render "govuk_publishing_components/components/button", {
+        text: "Schedule"
+      } %>
+    <% end %>
+  </div>
+</div>
