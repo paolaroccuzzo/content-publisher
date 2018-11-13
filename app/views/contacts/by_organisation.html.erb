@@ -1,0 +1,12 @@
+<% content_for :title, t("contacts.by_organisation.title") %>
+
+<ul class="govuk-list">
+  <% @organisations.each do |organisation| %>
+    <li>
+      <%= link_to(organisation["name"],
+                  contacts_show_organisation_path(organisation["content_id"]),
+                  class: "govuk-link") %>
+      <%= t("contacts.by_organisation.contacts", count: organisation["contacts"].count) %>
+    </li>
+  <% end %>
+</ul>

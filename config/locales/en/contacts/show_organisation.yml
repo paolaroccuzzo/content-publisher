@@ -1,0 +1,9 @@
+en:
+  contacts:
+    show_organisation:
+      api_down:
+        title: Content unavailable
+        body: This content isn't available. We're having trouble loading the data.
+      no_contacts_html: |
+        %{organisation} does not currently have any contacts. These can be managed
+        in <a href="%{whitehall}/government/admin/organisations" class="govuk-link">Whitehall Publisher</a>

@@ -1,0 +1,21 @@
+<% content_for :title, @organisation["name"] %>
+
+<% if @organisation["contacts"].empty? %>
+  <p class="govuk-body">
+    <%= t("contacts.show_organisation.no_contacts_html",
+          organisation: @organisation["name"],
+          whitehall: Plek.new.external_url_for("whitehall")) %>
+  </p>
+<% else %>
+  <ul class="govuk-list">
+    <% @organisation["contacts"].each do |contact| %>
+      <li>
+        <h2><%= contact["title"] %></h2>
+        <% if contact["description"].present? %>
+          <p><%= contact["description"] %></p>
+        <% end %>
+        <p>Markdown: <code>[Contact:<%= contact["content_id"] %>]</code></p>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

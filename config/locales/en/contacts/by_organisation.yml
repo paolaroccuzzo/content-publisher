@@ -1,0 +1,8 @@
+en:
+  contacts:
+    by_organisation:
+      title: Contacts by organisation
+      api_down: This content isn't available. We're having trouble loading the data.
+      contacts:
+        one: 1 contact
+        other: "%{count} contacts"

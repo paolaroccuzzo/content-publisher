@@ -59,6 +59,9 @@ Rails.application.routes.draw do
 
   post "/govspeak-preview" => "govspeak_preview#to_html"
 
+  get "/contacts-by-organisation" => "contacts#by_organisation", as: :contacts_by_organisation
+  get "/contacts-by-organisation/:organisation_id" => "contacts#show_organisation", as: :contacts_show_organisation
+
   mount GovukPublishingComponents::Engine, at: "/component-guide"
 
   if Rails.env.test?
