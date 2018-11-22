@@ -40,6 +40,12 @@
       end,
     } %>
 
+    <% if yield(:custom_back_link).present? %>
+      <%= render "govuk_publishing_components/components/back_link", {
+        text: JSON.parse(yield(:custom_back_link))["text"],
+        href: JSON.parse(yield(:custom_back_link))["href"],
+      } %>
+    <% end %>
     <% if yield(:back_link).present? %>
       <%= render "govuk_publishing_components/components/back_link", href: yield(:back_link) %>
     <% end %>
@@ -78,17 +84,18 @@
       <% end %>
     <% end %>
 
-    <main class="govuk-main-wrapper<%= " govuk-main-wrapper--l" if yield(:back_link).blank?%>" id="main-content" role="main">
+    <main class="govuk-main-wrapper<%= " govuk-main-wrapper--l" if yield(:back_link).blank? || 
+      yield(:custom_back_link).blank?%>" id="main-content" role="main">
       <% if yield(:title).present? %>
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          <span class="govuk-caption-l"><%= yield(:context) %></span>
-          <h1 class="govuk-heading-l"><%= yield(:title) %></h1>
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <span class="govuk-caption-l"><%= yield(:context) %></span>
+            <h1 class="govuk-heading-l"><%= yield(:title) %></h1>
+          </div>
+          <div class="govuk-grid-column-one-third app-grid-column--end">
+            <%= yield(:title_side) %>
+          </div>
         </div>
-        <div class="govuk-grid-column-one-third app-grid-column--end">
-          <%= yield(:title_side) %>
-        </div>
-      </div>
       <% end %>
       <%= yield %>
     </main>
