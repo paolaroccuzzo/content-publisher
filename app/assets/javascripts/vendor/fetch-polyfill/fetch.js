@@ -292,6 +292,10 @@
       request = new Request(input, init)
     }
 
+    console.log("fetch.fetch");
+    console.log(self.fetch);
+    console.log("fetch.Promise");
+    console.log(self.fetch.Promise);
     return new Promise(function(resolve, reject) {
       var xhr = getXhr();
       if (request.credentials === 'cors') {
