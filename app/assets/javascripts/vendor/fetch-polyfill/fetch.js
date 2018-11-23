@@ -358,7 +358,7 @@
   console.log("THERE");
   console.log(self.fetch);
   console.log("PROMISE");
-  console.log(self.fetch.Promise);
   self.fetch.Promise = self.Promise; // you could change it to your favorite alternative
+  console.log(self.fetch.Promise);
   self.fetch.polyfill = true
 })();
