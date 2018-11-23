@@ -4,6 +4,8 @@
     <meta name="sentry-current-env" content="<%= ENV["SENTRY_CURRENT_ENV"] %>">
   <% end %>
 
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
   <% if ENV["GOOGLE_TAG_MANAGER_ID"] %>
     <script>
       dataLayer = [{ 'dimension1': '<%= current_user.organisation_slug %>' }];
@@ -148,6 +150,6 @@
       },
     ]
   } %>
+
   <script src="https://cdn.ravenjs.com/3.26.4/raven.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 <% end %>

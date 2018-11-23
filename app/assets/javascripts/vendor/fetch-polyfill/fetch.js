@@ -82,13 +82,13 @@
 
   function consumed(body) {
     if (body.bodyUsed) {
-      return fetch.Promise.reject(new TypeError('Already read'))
+      return Promise.reject(new TypeError('Already read'))
     }
     body.bodyUsed = true
   }
 
   function fileReaderReady(reader) {
-    return new fetch.Promise(function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
       reader.onload = function() {
         resolve(reader.result)
       }
@@ -149,11 +149,11 @@
         }
 
         if (this._bodyBlob) {
-          return fetch.Promise.resolve(this._bodyBlob)
+          return Promise.resolve(this._bodyBlob)
         } else if (this._bodyFormData) {
           throw new Error('could not read FormData body as blob')
         } else {
-          return fetch.Promise.resolve(new Blob([this._bodyText]))
+          return Promise.resolve(new Blob([this._bodyText]))
         }
       }
 
@@ -172,13 +172,13 @@
         } else if (this._bodyFormData) {
           throw new Error('could not read FormData body as text')
         } else {
-          return fetch.Promise.resolve(this._bodyText)
+          return Promise.resolve(this._bodyText)
         }
       }
     } else {
       this.text = function() {
         var rejected = consumed(this)
-        return rejected ? rejected : fetch.Promise.resolve(this._bodyText)
+        return rejected ? rejected : Promise.resolve(this._bodyText)
       }
     }
 
@@ -292,7 +292,7 @@
       request = new Request(input, init)
     }
 
-    return new fetch.Promise(function(resolve, reject) {
+    return new Promise(function(resolve, reject) {
       var xhr = getXhr();
       if (request.credentials === 'cors') {
         xhr.withCredentials = true;
@@ -352,6 +352,13 @@
       xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
     })
   }
-  fetch.Promise = self.Promise; // you could change it to your favorite alternative
+  console.log(self);
+  console.log("HI");
+  console.log(self.Promise);
+  console.log("THERE");
+  console.log(self.fetch);
+  console.log("PROMISE");
+  console.log(self.fetch.Promise);
+  self.fetch.Promise = self.Promise; // you could change it to your favorite alternative
   self.fetch.polyfill = true
 })();
